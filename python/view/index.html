@@ -59,14 +59,14 @@
 
 
         <!-- wallet signin page -->
-        <div id="login" class="tab" v-if="tab_active">
+        <div id="login" class="tab mt-4" v-if="tab_active">
             <form class="form-signin" v-on:submit.prevent="walletconnnect">
-                <h2 class="form-signin-heading">Wallet Credentials</h2>
+                <h2 class="form-signin-heading mb-4">Wallet Credentials</h2>
                 <label for="inputEmail" class="sr-only">Wallet Name</label>
-                <input id="agent_name" v-model="agent_name" type="text" name="name" class="form-control" placeholder="Enter your wallet name" required autofocus>
+                <input id="agent_name" v-model="agent_name" type="text" name="name" class="form-control mb-2" placeholder="Enter your wallet name" required autofocus>
                 <label for="inputPassword" class="sr-only">Passphrase</label>
                 <input id="passphrase" v-model="passphrase" type="password" name="passphrase" class="form-control" placeholder="Passphrase" required>
-                <input id="agent_init" class="btn btn-lg btn-primary btn-block" type="submit" value="Open and Create"/>
+                <input id="agent_init" class="btn btn-lg btn-primary btn-block mt-2" type="submit" value="Open and Create"/>
             </form>
             <div class="alert alert-danger" role="alert" v-if="wallet_connect_error">{{wallet_connect_error}}</div>
         </div>
@@ -126,19 +126,15 @@
                 </div>
             </div>
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top:2em;">
-              <a class="h3 navbar-brand" href="#">Pending Connections</a>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-
-                </ul>
-                <button type="button" class="btn btn-outline-primary btn-small navbar-btn" v-on:click="generate_invite">Generate Connection Invitation</button>
-                <button type="button" class="btn btn-outline-primary btn-small navbar-btn ml-1" data-toggle="modal" data-target="#receive_invite_modal">Receive Invite</button>
+            <div class="row mt-4 mb-2">
+              <div class="col sm-6">
+                <h4 class="mt-2">Pending Connections</h4>
               </div>
-
-            </nav>
-
-
+              <div class="col sm-6 text-right">
+				<button type="button" class="btn btn-outline-primary btn-small navbar-btn mt-1" v-on:click="generate_invite">Generate Connection Invitation</button></li>
+				<button type="button" class="btn btn-outline-primary btn-small navbar-btn ml-1 mt-1" data-toggle="modal" data-target="#receive_invite_modal">Receive Invite</button></li>
+              </div>
+            </div>
 
             <table class="table table-bordered" id="conns-new">
                 <thead>
@@ -151,8 +147,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="c in connections">
-                        <td></td>
+                    <tr v-for="(c, cidx) in connections">
+                        <td>{{ cidx + 1 }}</td>
                         <td>{{ c.label }}</td>
                         <td>{{ c.status }}</td>
                         <td>
@@ -166,9 +162,11 @@
                 </tbody>
             </table>
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="h3 navbar-brand" href="#">Pairwise Connections</a>
-            </nav>
+            <div class="row mt-4 mb-2">
+              <div class="col sm-6">
+                <h4 class="mt-2">Pairwise Connections</h4>
+              </div>
+            </div>
 
             <table class="table table-bordered">
                 <thead>
@@ -215,15 +213,15 @@
         </div>
 
         <!-- relationships page -->
-        <div id="connection" class="tab" v-if="tab_active">
+        <div id="connection" class="tab mt-4" v-if="tab_active">
             <h3>Connection: {{connection.metadata.label}}</h3>
             <p>My DID: {{connection.my_did}}</p>
             <p>Their DID: {{connection.their_did}}</p>
 
             <div id="chatlist">
-                <div id="new_message_box">
-                    <input type="text" v-model="new_basicmessage"/>
-                    <input type="submit" value="Send" v-on:click="send_message()"/>
+                <div id="new_message_box" class="form-inline">
+					<input type="text" class="form-control" size="60" v-model="new_basicmessage"/>
+					<input type="submit" class="btn btn-primary ml-1" value="Send Message" v-on:click="send_message()"/>
                 </div>
                 <div id="message_history" v-for="m in basicmessage_list">
 
@@ -235,8 +233,8 @@
                 </div>
             </div>
             <div id="trustping">
-                <button type="button" class="btn btn-primary" v-on:click="send_trustping()">Send Trust Ping</button>
-                <p>{{connection.trustping_state}}</p>
+                <button type="button" class="btn btn-primary mt-3" v-on:click="send_trustping()">Send Trust Ping</button>
+                <p class="mt-1">{{connection.trustping_state}}</p>
             </div>
 
         </div>
